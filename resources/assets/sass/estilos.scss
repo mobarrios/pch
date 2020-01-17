@@ -1,0 +1,54 @@
+*:not(i){
+  font-family: 'Roboto', sans-serif !important;
+
+}
+
+.p0{
+  padding-left:0;
+  padding-right:0;
+}
+
+.img-user{
+  width:25px;
+  //border:2px solid rgba(255,255,255,.8);
+  -webkit-box-shadow: 0 0 1px 2px rgba(255,255,255,.8);
+  -moz-box-shadow: 0 0 1px 2px rgba(255,255,255,.8);
+  box-shadow: 0 0 1px 2px rgba(255,255,255,.8);
+  padding: 3px;
+  //margin-right: 5px;
+}
+
+.icon-user{
+  -moz-box-shadow: 0 0 1px 2px rgba(255,255,255,.8);
+  webkit-box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 1px 2px rgba(255, 255, 255, 0.8);
+  padding: 6px;
+  margin-right: 5px;
+  background: white;
+  color: #3c8dbc !important;
+}
+
+// Footer CID
+
+footer{
+  z-index: 1120;
+  position: relative;
+  bottom: 0;
+}
+
+.footer-azul
+{
+  height: 76px;
+  background-color: #183647;
+}
+
+.telefono
+{
+  font-size: 1.8rem;
+}
+
+.textoFooter
+{
+  font-size: 0.75rem;
+  line-height: 0.25rem;
+}
