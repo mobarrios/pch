@@ -135,13 +135,12 @@
                                         <button type="submit" :disabled="enviado" class="btn btn-primary btn-block">Buscar</button>
                                     </div>
 
-                                    <div class="col-xs-12">
-                                        <p class="help-block error text-danger" v-if="error"></p>
-                                    </div>
+                                    
                                 </div>
             {!! Form::close() !!}
 
        @if (isset($datas))
+
 
                             <table class="table table-responsive-poncho" v-if="resultado">
                                   
@@ -179,13 +178,22 @@
                                           
                                     <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
                                           
+                                    @if($datas->$datas->Tarjeta->first()->retiro_fecha == "" || $datas->$datas->Tarjeta->first()->retiro_hora == "")
+                                    <td data-label="Retiro">Día y horario a definir</td>
+
+                                    @else
                                     <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
+                                    @endif
                                           
                                 </tr>
                                   
                                 </tbody>
                             </table>
 
+                                @else
+                                    <div class="col-xs-12">
+                                        <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
+                                    </div>
                                 @endif
 
                         </div>
