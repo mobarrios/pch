@@ -179,10 +179,9 @@
                                     <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
                                           
                                     @if($datas->Tarjeta->first()->retiro_fecha == "" || $datas->Tarjeta->first()->retiro_hora == "")
-                                    <td data-label="Retiro">Día y horario a definir</td>
-
+                                            <td data-label="Retiro">Día y horario a definir</td>
                                     @else
-                                    <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
+                                        <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
                                     @endif
                                           
                                 </tr>
@@ -190,10 +189,10 @@
                                 </tbody>
                             </table>
 
-                                @else
+                                {{-- @else
                                     <div class="col-xs-12">
                                         <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
-                                    </div>
+                                    </div> --}}
                                 @endif
 
                         </div>
