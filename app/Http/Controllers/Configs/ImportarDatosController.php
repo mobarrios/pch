@@ -244,5 +244,31 @@ class ImportarDatosController extends Controller
             dd('personas dias y horarios ok');
     }
 
+    public function updateOperativos()
+    {
+     
+     $padrones = NuevoPadron::all();
+        //$personas = Persona::all();
+        //dd($padrones->count());
+
+            foreach ($padrones as $padron) {
+
+                $persona = Persona::where('nro_documento',$padron->NRO_DOC)->first();
+                 // OPERATIVO ID
+                $operativos_id = $padron->id_operativo;
+
+
+                if(!is_null($persona->Operativo))
+                    $persona->Operativo()->attach($operativos_id);
+                else
+                    echo $persona->nro_documento . '<br>';
+
+            
+            }   
+
+    dd('personas operativos creado');
+
+    }
+
 
 }

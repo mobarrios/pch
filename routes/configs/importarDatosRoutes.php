@@ -19,3 +19,7 @@ Route::get('personasDiasHorarios', [
 	'uses' => 'Configs\ImportarDatosController@personasDiasHorarios'
 ]);
 
+Route::get('updateOperativos', [
+	'as' => 'importarDatos.updateOperativos',
+	'uses' => 'Configs\ImportarDatosController@updateOperativos'
+]);

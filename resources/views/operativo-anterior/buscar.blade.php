@@ -139,61 +139,65 @@
                                 </div>
             {!! Form::close() !!}
 
-       @if (isset($datas))
+                         @if(isset($datas))
+
+                         @if($datas == 'sin data')
+                                <div class="col-xs-12">
+                                    <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
+                                </div> 
+
+                             @else
+                              <table class="table table-responsive-poncho" v-if="resultado">
+                                      
+                                    <thead>
+                                    <th>Nombre</th>
+                                     
+                                    <th>DNI</th>
+                                        
+                                    <th>Operativo</th>
+                                        
+                                    <th>Dirección</th>
+                                        
+                                    <th>Provincia</th>
+                                    <th>Municipio</th>
+                                    <th>Localidad</th>
+                                        
+                                    <th>Retiro</th>
+                                        
+                                    </thead>
+                                      
+                                    <tbody>
+                                        
+                                    <tr v-if="datosPersona != null">      
+                                        <td data-label="Nombre">{{$datas->apellido}} {{$datas->nombre}}</td>
+                                              
+                                        <td data-label="DNI">{{$datas->nro_documento}}</td>
+                                              
+                                        <td data-label="Operativo">{{$datas->Operativo->first()->nombre}}</td>
+                                              
+                                        <td data-label="Dirección">{{$datas->Operativo->first()->Geos->first()->calle }} {{$datas->Operativo->first()->Geos->first()->numero }}</td>
+                                              
+                                        <td data-label="Provincia">{{$datas->Operativo->first()->Geos->first()->provincia }}</td>
+                                              
+                                        <td data-label="Municipio">{{$datas->Operativo->first()->Geos->first()->municipio }}</td>
+                                              
+                                        <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
+                                              
+                                        @if($datas->Tarjeta->first()->retiro_fecha == "" || $datas->Tarjeta->first()->retiro_hora == "")
+                                                <td data-label="Retiro">Día y horario a definir</td>
+                                        @else
+                                            <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
+                                        @endif
+                                              
+                                    </tr>
+                                     
+                                    </tbody>
+                                </table>
+                            
+                         @endif
 
 
-                            <table class="table table-responsive-poncho" v-if="resultado">
-                                  
-                                <thead>
-                                <th>Nombre</th>
-                                 
-                                <th>DNI</th>
-                                    
-                                <th>Operativo</th>
-                                    
-                                <th>Dirección</th>
-                                    
-                                <th>Provincia</th>
-                                <th>Municipio</th>
-                                <th>Localidad</th>
-                                    
-                                <th>Retiro</th>
-                                    
-                                </thead>
-                                  
-                                <tbody>
-                                    
-                                <tr v-if="datosPersona != null">      
-                                    <td data-label="Nombre">{{$datas->apellido}} {{$datas->nombre}}</td>
-                                          
-                                    <td data-label="DNI">{{$datas->nro_documento}}</td>
-                                          
-                                    <td data-label="Operativo">{{$datas->Operativo->first()->nombre}}</td>
-                                          
-                                    <td data-label="Dirección">{{$datas->Operativo->first()->Geos->first()->calle }} {{$datas->Operativo->first()->Geos->first()->numero }}</td>
-                                          
-                                    <td data-label="Provincia">{{$datas->Operativo->first()->Geos->first()->provincia }}</td>
-                                          
-                                    <td data-label="Municipio">{{$datas->Operativo->first()->Geos->first()->municipio }}</td>
-                                          
-                                    <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
-                                          
-                                    @if($datas->Tarjeta->first()->retiro_fecha == "" || $datas->Tarjeta->first()->retiro_hora == "")
-                                            <td data-label="Retiro">Día y horario a definir</td>
-                                    @else
-                                        <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
-                                    @endif
-                                          
-                                </tr>
-                                  
-                                </tbody>
-                            </table>
-
-                                {{-- @else
-                                    <div class="col-xs-12">
-                                        <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
-                                    </div> --}}
-                                @endif
+                        @endif
 
                         </div>
                     </div>

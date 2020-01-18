@@ -233,7 +233,13 @@ class OperativoController extends Controller
 
     public function postFormulario(Request $request)
     {
-        $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
+         $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
+
+         if(!is_null($p)){
+            $datas['datas'] = $p;
+         }else{
+            $datas['datas'] = 'sin data';
+         }
 
         return view('operativo-anterior.buscar')->with($datas);
     }
