@@ -39,7 +39,6 @@ class OperativoController extends Controller
 
     public function buscarPost(Request $request)
     {
-        dd('asdsa');    
 
         if ($request->buscar != null)
         {

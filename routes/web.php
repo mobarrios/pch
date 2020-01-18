@@ -13,78 +13,78 @@
 
 //api
 //
-Route::group(['middleware'=>'cors'], function(){
+// Route::group(['middleware'=>'cors'], function(){
 
-    Route::get('api/{dni?}',function($dni){
+//     Route::get('api/{dni?}',function($dni){
 
-        $t = DB::table('personas')->where('nro_documento','=',$dni)
-        ->join('operativos_personas','operativos_personas.personas_id','=','personas.id')
-        ->join('operativos','operativos.id','=','operativos_personas.operativos_id')
-        ->join('personas_tarjetas','personas_tarjetas.personas_id','=','personas.id')
-        ->join('geos', function ($q) {
-                $q->on('operativos.id', '=', 'geos.entities_id')
-                    ->where('geos.entities_type', 'like', '%Operativo%');
-            })
-        ->join('tarjetas','tarjetas.id','=','personas_tarjetas.tarjetas_id')
-        //->join('sucursales','sucursales.id','=','tarjetas.sucursales_id')
-        ->select('personas.nombre as nombre','personas.apellido as apellido' ,'nro_documento','cuit',
-            //'sucursales.cod as cod',
-            //'sucursales.nombre as sucnom',
-            //'tarjetas.retiro_fecha',
-            //'tarjetas.retiro_hora')
-            'operativos_personas.operativos_id',
-            'operativos.nombre as op','geos.calle', 'geos.numero','geos.provincia','geos.localidad','geos.municipio','tarjetas.retiro_fecha','tarjetas.retiro_hora')
-        ->first();
+//         $t = DB::table('personas')->where('nro_documento','=',$dni)
+//         ->join('operativos_personas','operativos_personas.personas_id','=','personas.id')
+//         ->join('operativos','operativos.id','=','operativos_personas.operativos_id')
+//         ->join('personas_tarjetas','personas_tarjetas.personas_id','=','personas.id')
+//         ->join('geos', function ($q) {
+//                 $q->on('operativos.id', '=', 'geos.entities_id')
+//                     ->where('geos.entities_type', 'like', '%Operativo%');
+//             })
+//         ->join('tarjetas','tarjetas.id','=','personas_tarjetas.tarjetas_id')
+//         //->join('sucursales','sucursales.id','=','tarjetas.sucursales_id')
+//         ->select('personas.nombre as nombre','personas.apellido as apellido' ,'nro_documento','cuit',
+//             //'sucursales.cod as cod',
+//             //'sucursales.nombre as sucnom',
+//             //'tarjetas.retiro_fecha',
+//             //'tarjetas.retiro_hora')
+//             'operativos_personas.operativos_id',
+//             'operativos.nombre as op','geos.calle', 'geos.numero','geos.provincia','geos.localidad','geos.municipio','tarjetas.retiro_fecha','tarjetas.retiro_hora')
+//         ->first();
          
 
-            if(!empty($t)){
+//             if(!empty($t)){
 
-                // Operativo la matanza
-                if($t->operativos_id == 5){
-                    $f = '27-01 al 31-01';
-                    $h = 'Dia y hora a definir';
-                }
-                else{
+//                 // Operativo la matanza
+//                 if($t->operativos_id == 5){
+//                     $f = '27-01 al 31-01';
+//                     $h = 'Dia y hora a definir';
+//                 }
+//                 else{
 
-                    $f = $t->retiro_fecha;
-                    $h = $t->retiro_hora;
-                }
+//                     $f = $t->retiro_fecha;
+//                     $h = $t->retiro_hora;
+//                 }
                  
 
 
-                $data = [   "status" => 'ok', 
-                            "data" => [
-                                        'nombre'        => $t->nombre,
-                                        'apellido'      => $t->apellido,
-                                        'dni'           => $t->nro_documento,
-                                        'operativos'    => $t->op,
-                                        'direccion'     => $t->calle,
-                                        'numero'        => $t->numero,
-                                        'provincia'     => $t->provincia,
-                                        'municipio'     => $t->municipio,
-                                        'localidad'     => $t->localidad,
-                                        'fecha'         => $f,
-                                        'hora'          => $h
+//                 $data = [   "status" => 'ok', 
+//                             "data" => [
+//                                         'nombre'        => $t->nombre,
+//                                         'apellido'      => $t->apellido,
+//                                         'dni'           => $t->nro_documento,
+//                                         'operativos'    => $t->op,
+//                                         'direccion'     => $t->calle,
+//                                         'numero'        => $t->numero,
+//                                         'provincia'     => $t->provincia,
+//                                         'municipio'     => $t->municipio,
+//                                         'localidad'     => $t->localidad,
+//                                         'fecha'         => $f,
+//                                         'hora'          => $h
 
 
-                                        //'operativos_direccion' => $
-                                        //'sucursal_cod' => $t->cod,
-                                        //'sucursal_nom' => $t->sucnom,
-                                        //'fecha_retiro' => $t->retiro_fecha,
-                                        //'hora_retiro' => $t->retiro_hora
-                        ]
-                    ];
+//                                         //'operativos_direccion' => $
+//                                         //'sucursal_cod' => $t->cod,
+//                                         //'sucursal_nom' => $t->sucnom,
+//                                         //'fecha_retiro' => $t->retiro_fecha,
+//                                         //'hora_retiro' => $t->retiro_hora
+//                         ]
+//                     ];
 
 
-            }else{
+//             }else{
 
-                 $data = ["status" => 'persona no encontrada'];
-            }        
+//                  $data = ["status" => 'persona no encontrada'];
+//             }        
 
-         return response()->json($data);
-    });
+//          return response()->json($data);
+//     });
 
-});
+// });
 
 Auth::routes();
 
@@ -215,13 +215,13 @@ Route::post('setup',function(\Illuminate\Http\Request $request) {
 
 // ejemplo unidb
 
-Route::get('unidb',function(\App\Http\Functions\ApimdsFunction $api){
+// Route::get('unidb',function(\App\Http\Functions\ApimdsFunction $api){
 
-    $api->call(env('API_MDS_URL').'/unidb/renaper/f/27902367');
-    $res = $api->getResultado();
+//     $api->call(env('API_MDS_URL').'/unidb/renaper/f/27902367');
+//     $res = $api->getResultado();
 
-   dd($res);
-});
+//    dd($res);
+// });
 
 Route::get('personas/buscar/{search?}', [
     'as' => 'personas.formulario',
