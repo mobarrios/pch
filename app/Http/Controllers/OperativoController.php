@@ -37,17 +37,23 @@ class OperativoController extends Controller
 
 
 
-
     public function buscarPost(Request $request)
     {
-  
+        dd('asdsa');    
+
         if ($request->buscar != null)
         {
-            $id_user = Auth::id();
-           
+            $id_user        = Auth::id();
+            $user           = User::find($id_user);
+            $operativosId   = UsuarioOperativo::where('usuarios_id', $user->id)->select('operativos_id')->get();
+            //$operativosId   = [4];
+            //dd($operativosId);
 
-            $operativos_autorizados = User::find($id_user)->Operativo()->select('operativos.id')->get();
-           
+
+            //$operativos_autorizados = User::find($id_user)->Operativo()->select('operativos.id')->get();
+            //dd($operativos_autorizados);
+            //$operativos_autorizados = [4,9];
+            //dd($operativos_autorizados);
             //  dd($operativos_autorizados);
 
             $this->data['datas'] = collect();
@@ -57,13 +63,17 @@ class OperativoController extends Controller
 
 
                     
-                $datos = Persona::where('nro_documento','like', '%'.$request->buscar.'%')                                                                  
-                                    ->orWhere(DB::Raw("CONCAT(personas.apellido ,' ', personas.nombre)"), 'like', '%'.$request->buscar.'%')
-                                    ->join('operativos_personas', 'operativos_personas.personas_id', '=', 'personas.id')
+                $datos = Persona::where('nro_documento','=', $request->buscar)
+                ->join('operativos_personas', function($join)use($operativosId){
+                      $join->on('personas.id', '=', 'operativos_personas.personas_id')
+                            ->whereIn('operativos_personas.operativos_id', $operativosId);
+                    })                                                  
+                ->orWhere(DB::Raw("CONCAT(personas.apellido ,' ', personas.nombre)"), 'like', '%'.$request->buscar.'%');
+                                    //->join('operativos_personas', 'operativos_personas.personas_id', '=', 'personas.id')
                                     // ->join('users_operativos', 'users_operativos.operativos_id', '=', 'operativos_personas.operativos_id')
-                                    ->whereIn('operativos_personas.operativos_id',  $operativos_autorizados)
-                                    ;
-
+                                    //->whereIn('operativos_personas.operativos_id',  $operativos_autorizados)
+                                    
+                                    //dd($datos->get());
                 $this->data['datas'] = $this->data['datas']->merge($datos->get());
 
             // }
@@ -218,5 +228,21 @@ class OperativoController extends Controller
         $this->data['programa_id'] = $this->route->id;   
         UsuarioOperativo::where('operativos_id','=', $this->route->operativo_id )->delete(); 
         return redirect()->route(config($this->confFile.".viewIndex"),$this->data['programa_id'])->with('success','Registro Eliminado.');
+    }
+
+
+
+    public function postFormulario(Request $request)
+    {
+        $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
+
+        return view('operativo-anterior.buscar')->with($datas);
+    }
+
+
+     public function formulario(){            
+
+        return view('operativo-anterior.buscar');
+
     }
 }

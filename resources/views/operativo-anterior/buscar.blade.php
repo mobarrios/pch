@@ -1,16 +1,11 @@
-@extends('layouts.app')
 
-@section('content')
-    <!-- <div class="card-header">
-        <h3 class="card-title">Buscar</h3>
-    </div> -->
     <div class="card-body">
     <div class="row">
+        <h1>Programa Alimentario</h1>
         <div class="col-2"></div>
         <div class="col-7">            
-            {!! Form::open(['route'=> config($confFile.'.routeBuscar')]) !!}
+            {!! Form::open(['route'=> 'personas.postFormulario', 'method' => 'post' ]) !!}
             <div class="form-group">
-               
                 {!! Form::text('buscar',null,['class'=>'form-control', 'minlength'=>'5']) !!}
             </div>
         </div>
@@ -29,7 +24,9 @@
             <thead>
             <tr>
                 <!-- <th>Código</th> -->
-                <th>APELLIDO Y NOMBRE</th>
+                <th>APELLIDO </th>
+                <th>NOMBRE </th>
+
                 <th>DNI</th>
                 <th>DÍA</th>
                 <th>HORARIO</th>
@@ -37,27 +34,17 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($datas as $operativo)
+          
                 <tr>
-                    <!-- <td><a href="{{route(config($confFile.'.routeShow'),$operativo->id)}}" >{{$operativo->id}}</a></td> -->
-                    <td>{{$operativo->apellido_nombre}}</td>
-                    <td>{{$operativo->n_doc}}</td>
-                    <td>{{$operativo->operativo_dia}}</td>
-                    <td>{{$operativo->operativo_horario}}</td>
-                    <td>
-                        @if ($operativo->retiro == 1)
-                            <a class="btn btn-success btn-sm" id="retiro2" data-url="{{route(config($confFile.'.routeUpdate'), $operativo->id )}}"  >Sí</a> 
-                        @else
-                            <a class="btn  btn-sm  btn-danger" id="retiro" data-url="{{route(config($confFile.'.routeUpdate'), $operativo->id )}}">No</a> 
-                        @endif                       
-                    </td>
+                    
+                    <td>{{$datas->apellido}}</td>
+                    <td>{{$datas->nombre}}</td>
+                    <td>{{$datas->nro_documento}}</td>
+                    
                 </tr>
-            @endforeach
             </tbody>
         </table>
     @endif
   </div>
 
 
-
-@endsection

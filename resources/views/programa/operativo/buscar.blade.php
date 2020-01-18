@@ -4,7 +4,9 @@
     <!-- <div class="card-header">
         <h3 class="card-title">Buscar</h3>
     </div> -->
-    <div class="card-body">
+<div class="card-body">
+    <div class="table-responsive">
+    
     <div class="row">
         <div class="col-2"></div>
         <div class="col-7">            
@@ -23,8 +25,7 @@
         <div class="col-2"></div>
     </div>
   
-            
-
+    
 
        @if (isset($datas))
         <table id="" class="table table-hover">
@@ -67,7 +68,9 @@
         </table>       
         
     @endif
-  </div>
+
+    </div>
+</div>
  
 
 

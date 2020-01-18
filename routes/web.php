@@ -32,23 +32,39 @@ Route::group(['middleware'=>'cors'], function(){
             //'sucursales.nombre as sucnom',
             //'tarjetas.retiro_fecha',
             //'tarjetas.retiro_hora')
+            'operativos_personas.operativos_id',
             'operativos.nombre as op','geos.calle', 'geos.numero','geos.provincia','geos.localidad','geos.municipio','tarjetas.retiro_fecha','tarjetas.retiro_hora')
         ->first();
          
-            $data = ["status" => 'ok', 
-                            "data" => [
-                                        'nombre' => $t->nombre,
-                                        'apellido' => $t->apellido,
-                                        'dni' => $t->nro_documento,
-                                        'operativos' => $t->op,
-                                        'direccion' => $t->calle,
-                                        'numero' => $t->numero,
-                                        'provincia' => $t->provincia,
-                                        'municipio' => $t->municipio,
-                                        'localidad' => $t->localidad,
-                                        'fecha' => $t->retiro_fecha,
-                                        'hora' => $t->retiro_hora
 
+            if(!empty($t)){
+
+                // Operativo la matanza
+                if($t->operativos_id == 5){
+                    $f = '27-01 al 31-01';
+                    $h = 'Dia y hora a definir';
+                }
+                else{
+
+                    $f = $t->retiro_fecha;
+                    $h = $t->retiro_hora;
+                }
+                 
+
+
+                $data = [   "status" => 'ok', 
+                            "data" => [
+                                        'nombre'        => $t->nombre,
+                                        'apellido'      => $t->apellido,
+                                        'dni'           => $t->nro_documento,
+                                        'operativos'    => $t->op,
+                                        'direccion'     => $t->calle,
+                                        'numero'        => $t->numero,
+                                        'provincia'     => $t->provincia,
+                                        'municipio'     => $t->municipio,
+                                        'localidad'     => $t->localidad,
+                                        'fecha'         => $f,
+                                        'hora'          => $h
 
 
                                         //'operativos_direccion' => $
@@ -58,6 +74,12 @@ Route::group(['middleware'=>'cors'], function(){
                                         //'hora_retiro' => $t->retiro_hora
                         ]
                     ];
+
+
+            }else{
+
+                 $data = ["status" => 'persona no encontrada'];
+            }        
 
          return response()->json($data);
     });
@@ -200,3 +222,13 @@ Route::get('unidb',function(\App\Http\Functions\ApimdsFunction $api){
 
    dd($res);
 });
+
+Route::get('personas/buscar/{search?}', [
+    'as' => 'personas.formulario',
+    'uses' => 'OperativoController@formulario'
+]);
+
+Route::post('personas/buscar', [
+    'as' => 'personas.postFormulario',
+    'uses' => 'OperativoController@postFormulario'
+]);
