@@ -21,8 +21,8 @@
     <link href="http://argob.github.io/poncho/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://argob.github.io/poncho/node_modules/argob-poncho/dist/css/poncho.css" rel="stylesheet">
 
-    <link href="../css/poncho.css" rel="stylesheet">
-
+{{--     <link href="../css/poncho.css" rel="stylesheet">
+ --}}
     <style>
         .navbar-brand img {
             height: 50px !important;
@@ -54,13 +54,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://www.argentina.gob.ar">
+                    {{-- <a class="navbar-brand" href="http://www.argentina.gob.ar">
                         <img alt="Brand"
                              src="https://www.argentina.gob.ar/profiles/argentinagobar/themes/argentinagobar/argentinagobar_theme/logo.svg"
                              height="50">
                         <h1 class="sr-only">Argentina.gob.ar <small>Presidencia de la Nación</small>
                         </h1>
-                    </a>
+                    </a> --}}
                 </div>
 
                 <!-- SEARCH FORM -->
@@ -169,17 +169,17 @@
                                           
                                     <td data-label="DNI">{{$datas->nro_documento}}</td>
                                           
-                                    <td data-label="Operativo">{{$datas->nro_documento}}</td>
+                                    <td data-label="Operativo">{{$datas->Operativo->first()->nombre}}</td>
                                           
-                                    <td data-label="Dirección">{{$datas->nro_documento}}</td>
+                                    <td data-label="Dirección">{{$datas->Operativo->first()->Geos->first()->calle }} {{$datas->Operativo->first()->Geos->first()->numero }}</td>
                                           
-                                    <td data-label="Provincia">{{$datas->nro_documento}}</td>
+                                    <td data-label="Provincia">{{$datas->Operativo->first()->Geos->first()->provincia }}</td>
                                           
-                                    <td data-label="Municipio">{{$datas->nro_documento}}</td>
+                                    <td data-label="Municipio">{{$datas->Operativo->first()->Geos->first()->municipio }}</td>
                                           
-                                    <td data-label="Localidad">{{$datas->nro_documento}}</td>
+                                    <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
                                           
-                                    <td data-label="Retiro">{{$datas->nro_documento}}</td>
+                                    <td data-label="Retiro">{{$datas->Tarjeta->first()->retiro_fecha }} {{$datas->Tarjeta->first()->retiro_hora }}</td>
                                           
                                 </tr>
                                   
@@ -196,10 +196,10 @@
 
 
         <script src="../js/jquery-3.4.1.min.js"></script>
-        <script src="https://www.google.com/recaptcha/api.js?render=6Ld0idAUAAAAAFjqrXLvjzfgu2PV9tjUstBopjwS"></script>
+        {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Ld0idAUAAAAAFjqrXLvjzfgu2PV9tjUstBopjwS"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="../js/consulta-padron.js"></script>
+        <script src="../js/consulta-padron.js"></script> --}}
 
 
     </div><!-- end of #wrapper -->
@@ -207,7 +207,7 @@
 
 </div><!-- end of #main -->
 
-<footer class="main-footer sticky-footer" id="footer-bottom" style="margin-top:2em;">
+{{-- <footer class="main-footer sticky-footer" id="footer-bottom" style="margin-top:2em;">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
@@ -246,7 +246,7 @@
         </div>
     </div>
 </footer>
-
+ --}}
 <script src="../js/jquery-3.4.1.min.js"></script>
 </body>
 </html>
