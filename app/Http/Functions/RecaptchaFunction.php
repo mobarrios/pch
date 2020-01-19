@@ -83,7 +83,7 @@ class Recaptcha
         
 
         $resultado = $this->getResultado();
-
+        return $resultado;
         if ($resultado["success"] == '1' && $resultado["score"] >= 0.5) {
 
             $rta = true;
