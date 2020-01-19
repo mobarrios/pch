@@ -254,12 +254,6 @@ class OperativoController extends Controller
     }
 
 
-     public function recaptcha(Request $request){            
-
-
-
-    }
-
      public function formulario(){            
 
         return view('operativo-anterior.buscar');
