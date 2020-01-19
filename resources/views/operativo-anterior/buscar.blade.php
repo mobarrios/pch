@@ -12,8 +12,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>Ministerio de Desarrollo Social - Padrón</title>
 
+    <base href="{{asset('')}}">
 
-    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
 
     <link href="http://argob.github.io/poncho/node_modules/argob-poncho/dist/css/roboto-fontface.css" rel="stylesheet">
 
@@ -121,7 +122,7 @@
             {!! Form::close() !!} --}}
 
                               
-            {!! Form::open(['route'=> 'personas.postFormulario', 'method' => 'post' ]) !!}
+            {!! Form::open(['route'=> 'personas.postFormulario', 'method' => 'post', 'id' => 'formulario' ]) !!}
                                 <div class="row">
                                     <div class="col-md-8">
                                        {{--  <input v-model="datos" placeholder="Ingrese su DNI" type="number"
@@ -146,7 +147,11 @@
                                     <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
                                 </div> 
 
-                             @else
+                         @elseif($datas == 'captcha')
+                                <div class="col-xs-12">
+                                    <p class="help-block error text-danger" >Hubo un error, vuelva a intentarlo nuevamente más tarde.</p>
+                                </div>
+                        @else
                               <table class="table table-responsive-poncho" v-if="resultado">
                                       
                                     <thead>
@@ -206,59 +211,17 @@
         </div><!-- end of #content -->
 
 
-        <script src="../js/jquery-3.4.1.min.js"></script>
-        {{-- <script src="https://www.google.com/recaptcha/api.js?render=6Ld0idAUAAAAAFjqrXLvjzfgu2PV9tjUstBopjwS"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="../js/consulta-padron.js"></script> --}}
-
 
     </div><!-- end of #wrapper -->
 
 
 </div><!-- end of #main -->
 
-{{-- <footer class="main-footer sticky-footer" id="footer-bottom" style="margin-top:2em;">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <img class="image-responsive" alt="Argentina.gob.ar - Presidencia de la Nación"
-                     src="https://www.argentina.gob.ar/profiles/argentinagobar/themes/argentinagobar/argentinagobar_theme/logo_argentina_unida.svg">
-                <br>
-                <p class="text-muted small">Los contenidos de Argentina.gob.ar están licenciados bajo <a
-                        href="https://creativecommons.org/licenses/by/2.5/ar/">Creative Commons Reconocimiento 2.5
-                    Argentina License</a></p>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="region region-footer2">
-                    <section id="block-menu-menu-footer-2" class="block block-menu clearfix">
-                        <ul class="menu nav">
-                            <li class="first leaf"><a href="https://www.argentina.gob.ar/turnos">Turnos</a></li>
-                            <li class="leaf"><a href="https://www.argentina.gob.ar/organismos">Organismos del Estado</a>
-                            </li>
-                            <li class="last leaf"><a href="http://mapadelestado.jefatura.gob.ar/">Mapa del Estado</a>
-                            </li>
-                        </ul>
-                    </section>
-                </div>
 
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="region region-footer3">
-                    <section id="block-menu-menu-footer-3" class="block block-menu clearfix">
-                        <ul class="menu nav">
-                            <li class="first leaf"><a href="https://www.argentina.gob.ar/normativa">Leyes argentinas</a></li>
-                            <li class="leaf"><a href="https://www.argentina.gob.ar/acerca">Acerca de este sitio</a></li>
-                            <li class="last leaf"><a href="https://www.argentina.gob.ar/terminos-y-condiciones">Términos y condiciones</a></li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
- --}}
-<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Ld0idAUAAAAAFjqrXLvjzfgu2PV9tjUstBopjwS"></script>
+<script src="js/consulta-padron.js"></script>
+
 </body>
 </html>
 
