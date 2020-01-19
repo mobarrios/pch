@@ -12,6 +12,7 @@ use App\User;
 use App\Entities\OperativoPersona;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Functions\Recaptcha;
 
 
 use Illuminate\Support\Facades\Auth;
@@ -233,17 +234,32 @@ class OperativoController extends Controller
 
     public function postFormulario(Request $request)
     {
-         $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
+        dd($request->all());
 
-         if(!is_null($p)){
-            $datas['datas'] = $p;
-         }else{
-            $datas['datas'] = 'sin data';
-         }
+        $recaptcha = new Recaptcha();
+
+        if($recaptcha->getCaptcha()):
+
+             $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
+
+             if(!is_null($p)){
+                $datas['datas'] = $p;
+             }else{
+                $datas['datas'] = 'sin data';
+             }
+        else:
+            $datas['datas'] = 'captcha';
+        endif;
 
         return view('operativo-anterior.buscar')->with($datas);
     }
 
+
+     public function recaptcha(Request $request){            
+
+
+
+    }
 
      public function formulario(){            
 
