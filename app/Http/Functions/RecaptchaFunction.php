@@ -15,7 +15,8 @@ class Recaptcha
 
     public function __construct($token)
     {
-        $this->apiKey = env('RECAPTCHA_V3_SECRET_KEY', '');
+//        $this->apiKey = env('RECAPTCHA_V3_SECRET_KEY', '');
+        $this->apiKey = '6Ld0idAUAAAAAP7jUmv94baGfzqHeQ--kThQ904g';
         $this->url = 'https://www.google.com/recaptcha/api/siteverify';
         $this->token = $token;
 
