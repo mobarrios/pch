@@ -234,8 +234,6 @@ class OperativoController extends Controller
 
     public function postFormulario(Request $request)
     {
-        dd($request->all());
-
         $recaptcha = new Recaptcha();
 
         if($recaptcha->getCaptcha()):
