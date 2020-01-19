@@ -3,7 +3,7 @@ $(function(){
     $("#formulario").on('submit', function(ev){
         ev.preventDefault();
 
-        let ok = false;
+
 
         grecaptcha.ready(() => {
 
@@ -12,13 +12,15 @@ $(function(){
                 $("#formulario").prepend("<input type='hidden' name='token' value='" + token + "'/>");
                 $("#formulario").prepend("<input type='hidden' name='action' value='homepage'/>");
                 
-                ok = true;
+
+            }).then(() => {
+
+                $("#formulario").submit();
+
             });
 
         });
 
-        if(ok){
-            $("#formulario").submit();
-        }
+
     })
 })
