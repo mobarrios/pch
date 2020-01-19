@@ -15,7 +15,7 @@ class Recaptcha
 
     public function __construct($token)
     {
-        $apiKey = env('RECAPTCHA_V3_SECRET_KEY', '');
+        $this->apiKey = env('RECAPTCHA_V3_SECRET_KEY', '');
         $this->url = 'https://www.google.com/recaptcha/api/siteverify';
         $this->token = $token;
 
@@ -78,8 +78,6 @@ class Recaptcha
 
     public function getCaptcha(){
         $respuesta = $this->call();
-        
-        return [$respuesta,$this->getResultado(),$this->getHttpCode()];
 
         $resultado = $this->getResultado();
         if ($resultado["success"] == '1' && $resultado["score"] >= 0.5) {
