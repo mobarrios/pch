@@ -236,6 +236,7 @@ class OperativoController extends Controller
     {
         $recaptcha = new Recaptcha($request->token);
 
+        dd($recaptcha->getCaptcha());
         if($recaptcha->getCaptcha()):
 
              $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
