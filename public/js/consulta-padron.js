@@ -3,6 +3,8 @@ $(function(){
     $("#formulario").on('submit', function(ev){
         ev.preventDefault();
 
+        let ok = false;
+
         grecaptcha.ready(() => {
 
             grecaptcha.execute('6Ld0idAUAAAAAFjqrXLvjzfgu2PV9tjUstBopjwS', {action: 'homepage'}).then((token) => {
@@ -10,11 +12,13 @@ $(function(){
                 $("#formulario").prepend("<input type='hidden' name='token' value='" + token + "'/>");
                 $("#formulario").prepend("<input type='hidden' name='action' value='homepage'/>");
                 
-
+                ok = true;
             });
 
-            $("#formulario").submit();
         });
 
+        if(ok){
+            $("#formulario").submit();
+        }
     })
 })
