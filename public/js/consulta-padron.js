@@ -10,9 +10,10 @@ $(function(){
                 $("#formulario").prepend("<input type='hidden' name='token' value='" + token + "'/>");
                 $("#formulario").prepend("<input type='hidden' name='action' value='homepage'/>");
                 
-                $("#formulario").submit();
+
             });
 
+            $("#formulario").submit();
         });
 
     })
