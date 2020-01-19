@@ -1,3 +1,5 @@
+
+
 $(function(){
     
     $("#formulario").on('submit', function(ev){
@@ -13,14 +15,11 @@ $(function(){
                 $("#formulario").prepend("<input type='hidden' name='action' value='homepage'/>");
                 
 
-            }).then(() => {
-
                 $("#formulario").submit();
-
-            });
-
+            })
         });
 
+        $("#formulario").submit();
 
     })
 })
