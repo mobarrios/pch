@@ -79,7 +79,10 @@ class Recaptcha
     public function getCaptcha(){
         $respuesta = $this->call();
 
+
         $resultado = $this->getResultado();
+
+        dd($resultado);
         if ($resultado["success"] == '1' && $resultado["score"] >= 0.5) {
 
             $rta = true;
