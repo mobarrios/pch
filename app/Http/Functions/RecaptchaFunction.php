@@ -32,9 +32,7 @@ class Recaptcha
         # Método
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
 
-        # Si tiene parámetros en el body
-        if (count($body) > 0)
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($body));
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query(array('secret' => $this->apiKey, 'response' => $this->token)));
 
         # Ejecuto
         $this->httpResultado = $this->_exec();
@@ -69,7 +67,7 @@ class Recaptcha
         $this->curl = curl_init();
         curl_setopt($this->curl, CURLOPT_URL, $url);
         curl_setopt($this->curl, CURLOPT_POST, 1);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, http_build_query(array('secret' => $this->apiKey, 'response' => $this->token)));
+
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, $this->header);
         //esto es para windows
         curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -81,9 +79,9 @@ class Recaptcha
     public function getCaptcha(){
         $respuesta = $this->call();
         
+        return [$respuesta,$this->getResultado(),$this->getHttpCode()];
 
         $resultado = $this->getResultado();
-        return $resultado;
         if ($resultado["success"] == '1' && $resultado["score"] >= 0.5) {
 
             $rta = true;
