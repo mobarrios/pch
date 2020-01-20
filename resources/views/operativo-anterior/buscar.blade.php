@@ -37,6 +37,29 @@
 
     </style>
 
+    {{--
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : {{ env('GOOGLE_RECAPTCHA_KEY') }}
+        });
+      };
+    </script>
+        --}}
+
+
+    <script src='https://www.google.com/recaptcha/api.js?render=6LdXC9EUAAAAABm_ftXh4M0_JSRsv2QdDNTEar_g'> 
+    </script>
+    <script>
+    grecaptcha.ready(function() {
+    grecaptcha.execute('6LdXC9EUAAAAABm_ftXh4M0_JSRsv2QdDNTEar_g', {action: "buscar" })
+    .then(function(token) {
+    var recaptchaResponse = document.getElementById('recaptchaResponse');
+    recaptchaResponse.value = token;
+    });});
+    </script>
+    
 
 </head>
 <body>
@@ -128,25 +151,32 @@
                                                class="form-control" id="buscar"
                                                aria-required="true"> --}}
 
-                                                               {!! Form::text('buscar',null,['class'=>'form-control', 'minlength'=>'5','placeholder'=>'Ingrese su DNI' ,'id'=>'buscar']) !!}
+                                    {!! Form::text('buscar',null,['class'=>'form-control', 'minlength'=>'5','placeholder'=>'Ingrese su DNI' ,'id'=>'buscar']) !!}
+                                    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
 
                                     </div>
+
                                     <div class="col-md-4">
                                         <button type="submit" :disabled="enviado" class="btn btn-primary btn-block">Buscar</button>
+                                        
+                                        {{--
+                                        <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+                                            --}}  
+                                    
                                     </div>
 
                                     
                                 </div>
             {!! Form::close() !!}
 
-                         @if(isset($datas))
+                    @if(isset($datas))
 
-                         @if($datas == 'sin data')
-                                <div class="col-xs-12">
-                                    <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
-                                </div> 
+                        @if($datas == 'sin data')
+                            <div class="col-xs-12">
+                                <p class="help-block error text-danger" >Usted no se encuentra asignado a ningún operativo activo.</p>
+                            </div> 
 
-                             @else
+                        @else
                               <table class="table table-responsive-poncho" v-if="resultado">
                                       
                                     <thead>
@@ -196,6 +226,13 @@
                             
                          @endif
 
+
+                        @endif
+
+                        @if(isset($captcha_error))
+                            <div class="col-xs-12">
+                                <p class="help-block error text-danger" > {{$captcha_error}} </p>
+                            </div> 
 
                         @endif
 
@@ -262,6 +299,3 @@
 </body>
 </html>
 
-
-
-    

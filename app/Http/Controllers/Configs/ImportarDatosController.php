@@ -38,7 +38,7 @@ class ImportarDatosController extends Controller
     public function nuevoPadron(){
 
     	$padrones = NuevoPadron::all();
-        dd('nuevo padron');
+        // dd('nuevo padron');
         //DB::beginTransaction();
 
         //try{

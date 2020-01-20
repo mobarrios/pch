@@ -117,7 +117,7 @@
 
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#tablasMaestras">
-            <i class="menu-icon mdi mdi-settings "></i>
+            <i class="menu-icon mdi mdi-table "></i>
             <span class="menu-title">Tablas</span>
             <i class="menu-arrow"></i>
         </a>
@@ -126,21 +126,21 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('programa.index')}}">
-                        <i class="menu-icon mdi mdi-table"></i>
+                        <i class="menu-icon mdi mdi-application"></i>
                         <span class="menu-title">Programas</span>
                     </a>
                 </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('tipo_documento.index')}}">
-                        <i class="menu-icon mdi mdi-table"></i>
+                        <i class="menu-icon mdi mdi-file-document-box "></i>
                         <span class="menu-title">Tipos de documentos</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('genero.index')}}">
-                        <i class="menu-icon mdi mdi-table"></i>
+                        <i class="menu-icon mdi mdi-human-male-female"></i>
                         <span class="menu-title">Generos</span>
                     </a>
                 </li>
@@ -155,15 +155,22 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('banco.index')}}">
-                        <i class="menu-icon mdi mdi-table"></i>
+                        <i class="menu-icon mdi mdi-bank"></i>
                         <span class="menu-title">Bancos</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('consumo.index')}}">
-                        <i class="menu-icon mdi mdi-table"></i>
+                        <i class="menu-icon mdi mdi-cash-multiple"></i>
                         <span class="menu-title">Consumos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reportes.index')}}">
+                        <i class="menu-icon mdi mdi-table"></i>
+                        <span class="menu-title">Reportes</span>
                     </a>
                 </li>
 
@@ -236,6 +243,8 @@
                 @endif
 
 
+                @yield('secondContent')
+                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">

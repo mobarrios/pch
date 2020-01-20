@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 use App\Entities\Operativo;
 use App\Entities\UsuarioOperativo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
+    use SoftDeletes;
 
 
     /**

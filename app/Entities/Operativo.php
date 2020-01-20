@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Entities;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Operativo extends Entities
 {
 
+    use SoftDeletes;
+    
     protected $table = 'operativos';
     protected $fillable = [
        'nombre',
@@ -32,6 +35,12 @@ class Operativo extends Entities
     {
         return $query->where('apellido_nombre', 'like', '%'.$valor.'%');
     }
+
+     public function Persona(){
+
+        return $this->belongsToMany( Persona::class , 'operativos_personas',  'operativos_id','personas_id');
+
+     }
 
 
 

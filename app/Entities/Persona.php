@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Entities;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Persona extends Entities
 {
+    use SoftDeletes;
 
     protected $table = 'personas';
     protected $fillable = [
