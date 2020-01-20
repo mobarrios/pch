@@ -11,7 +11,7 @@
             {!! Form::open(['route'=> 'operativo.buscarPost']) !!}
             <div class="form-group">
                
-                {!! Form::text('buscar',null,['class'=>'form-control', 'minlength'=>'5']) !!}
+                {!! Form::text('buscar',null,['class'=>'form-control', 'minlength'=>'5', 'placeholder' => 'Buscar por APELLIDO NOMBRE o DOCUMENTO']) !!}
             
             </div>
             <div class="text-center" style="font-size: 12px; text-transform: uppercase;">Solo se mostrarán los primeros 50 resultados</div>
@@ -44,27 +44,25 @@
  
             <!-- foreach ($datas as $data) -->
        
-                @foreach($datas as $persona)                    
-                    <tr>
+                @foreach($datas as $persona)    
+                    @if (!$persona->Operativo->isEmpty())                
+                        <tr>
+                            
+                            <td>{{$persona->apellido}} {{$persona->nombre}}</td>
+                            <td>{{$persona->nro_documento}}</td>
+                            <td>{{$persona->Tarjeta->first()->retiro_fecha}}</td>
+                            <td>{{$persona->Tarjeta->first()->retiro_hora}}</td>
+                            <td>{{$persona->Operativo->first()->nombre}}</td>
+                            <td>
                         
-                        <td>{{$persona->apellido}} {{$persona->nombre}}</td>
-                        <td>{{$persona->nro_documento}}</td>
-                        <td>{{$persona->Tarjeta->first()->retiro_fecha}}</td>
-                        <td>{{$persona->Tarjeta->first()->retiro_hora}}</td>
-                        <td>
-                        @if (isset($persona->Operativo))
-                            {{$persona->Operativo->first()->nombre}}
-                        @endif
-                        </td>
-                        <td>
-                    
-                            @if ($persona->Operativo->first()->pivot->concurrio == 1)
-                                <a class="btn btn-success btn-sm retiro2" data-url="{{route('operativo.update_concurrio', [$persona->id, $persona->Operativo->first()->id] )}}"  >Sí</a> 
-                            @else
-                                <a class="btn  btn-sm  btn-danger retiro"  data-url="{{route('operativo.update_concurrio', [$persona->id, $persona->Operativo->first()->id] )}}">No</a> 
-                            @endif                       
-                        </td>
-                    </tr>
+                                @if ($persona->Operativo->first()->pivot->concurrio == 1)
+                                    <a class="btn btn-success btn-sm retiro2" data-url="{{route('operativo.update_concurrio', [$persona->id, $persona->Operativo->first()->id] )}}"  >Sí</a> 
+                                @else
+                                    <a class="btn  btn-sm  btn-danger retiro"  data-url="{{route('operativo.update_concurrio', [$persona->id, $persona->Operativo->first()->id] )}}">No</a> 
+                                @endif                       
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach                
             <!-- endforeach             -->
             </tbody>

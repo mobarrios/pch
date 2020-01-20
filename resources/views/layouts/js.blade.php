@@ -57,7 +57,7 @@
     $(document).ready(function () {
         
 
-      
+      $('#buscador').removeAttr('disabled');
 
         $('.retiro').on('click', function(){  
             $.get($(this).attr("data-url"), function(){

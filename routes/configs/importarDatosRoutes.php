@@ -23,3 +23,8 @@ Route::get('updateOperativos', [
 	'as' => 'importarDatos.updateOperativos',
 	'uses' => 'Configs\ImportarDatosController@updateOperativos'
 ]);
+
+Route::get('operativosConcordia', [
+	'as' => 'importarDatos.operativosConcordia',
+	'uses' => 'Configs\ImportarDatosController@operativosConcordia'
+]);
