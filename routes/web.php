@@ -135,6 +135,7 @@ Route::group(['middleware'=> (env('SSO_AUTH')? 'auth.sso':'auth' )],function(){
     require(__DIR__ .'/pch/tipo_documento.php');
     require(__DIR__ .'/pch/estado_civil.php');
     require(__DIR__ .'/pch/consumos.php');
+    require(__DIR__ .'/pch/reportes.php');
 
     require(__DIR__ .'/configs/importarDatosRoutes.php');
 

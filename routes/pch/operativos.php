@@ -34,7 +34,10 @@ Route::group(['prefix'=> 'operativo'], function(){
             'uses' => 'OperativoController@destroy'
         ]);
 
-        
+         Route::get('show', [
+            'as' => 'programa.operativo.show',
+            'uses' => 'OperativoController@show'
+        ]);
 
     });
 });

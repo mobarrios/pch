@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Entities;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Geos extends Entities
 {
 
+    use SoftDeletes;
+    
     protected $table = 'geos';
     protected $fillable = [
         'latitud',

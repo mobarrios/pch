@@ -45,22 +45,8 @@ class OperativoController extends Controller
             $id_user        = Auth::id();
             $user           = User::find($id_user);
             $operativosId   = UsuarioOperativo::where('usuarios_id', $user->id)->select('operativos_id')->get();
-            //$operativosId   = [4];
-            //dd($operativosId);
-
-
-            //$operativos_autorizados = User::find($id_user)->Operativo()->select('operativos.id')->get();
-            //dd($operativos_autorizados);
-            //$operativos_autorizados = [4,9];
-            //dd($operativos_autorizados);
-            //  dd($operativos_autorizados);
 
             $this->data['datas'] = collect();
-
-            // foreach ($operativos_autorizados as $operativo_autorizado)
-            // {
-
-
                     
                 $datos = Persona::where('nro_documento','=', $request->buscar)
                 ->join('operativos_personas', function($join)use($operativosId){
@@ -68,16 +54,16 @@ class OperativoController extends Controller
                             ->whereIn('operativos_personas.operativos_id', $operativosId);
                     })                                                  
                 ->orWhere(DB::Raw("CONCAT(personas.apellido ,' ', personas.nombre)"), 'like', '%'.$request->buscar.'%');
-                                    //->join('operativos_personas', 'operativos_personas.personas_id', '=', 'personas.id')
-                                    // ->join('users_operativos', 'users_operativos.operativos_id', '=', 'operativos_personas.operativos_id')
-                                    //->whereIn('operativos_personas.operativos_id',  $operativos_autorizados)
-                                    
-                                    //dd($datos->get());
-                $this->data['datas'] = $this->data['datas']->merge($datos->get());
+ 
+            $this->data['datas'] = $this->data['datas']->merge($datos->get());
 
-            // }
-            
-            $this->data['datas'] = $this->data['datas']->take(50);
+            if ($datos->count() == 2){
+                $this->data['datas'] = $this->data['datas']->take(1);
+            }
+            else{
+                $this->data['datas'] = $this->data['datas']->take(50);
+            }
+
 
             return view(config($this->confFile.".viewBuscar"))->with($this->data);
                  
@@ -229,20 +215,77 @@ class OperativoController extends Controller
         return redirect()->route(config($this->confFile.".viewIndex"),$this->data['programa_id'])->with('success','Registro Eliminado.');
     }
 
-
-
     public function postFormulario(Request $request)
     {
-         $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
 
-         if(!is_null($p)){
-            $datas['datas'] = $p;
-         }else{
-            $datas['datas'] = 'sin data';
-         }
+        $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
+        $recaptcha_secret = '6LdXC9EUAAAAAA2kqcbV_c6XSgw0U9eQgjiPqQuo'; 
+        $recaptcha_response = $request->recaptcha_response; 
 
-        return view('operativo-anterior.buscar')->with($datas);
-    }
+        //  dd($recaptcha_response);
+
+        $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
+        $recaptcha = json_decode($recaptcha); 
+
+    //   dd($recaptcha);
+        
+        if($recaptcha->score >= 0.7){
+            $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
+           
+                $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
+   
+                if(!is_null($p)){
+                   $datas['datas'] = $p;
+                }else{
+                   $datas['datas'] = 'sin data';
+                }
+   
+               return view('operativo-anterior.buscar')->with($datas);
+                    
+           }else{
+   
+               $datas['captcha_error'] = 'Error en la validación de captcha';
+               return view('operativo-anterior.buscar')->with($datas);
+           }
+        
+        }
+
+   
+/*
+
+        $recaptcha_secret   = env('GOOGLE_RECAPTCHA_SECRET'); 
+        $recaptcha_response = $request->recaptcha_response; 
+        $url                = 'https://www.google.com/recaptcha/api/siteverify'; 
+        $data               = array( 'secret' => $recaptcha_secret, 'response' => $recaptcha_response, 'remoteip' => $_SERVER['REMOTE_ADDR'] ); 
+        $curlConfig         = array( CURLOPT_URL => $url, CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_POSTFIELDS => $data ); 
+        $ch                 = curl_init(); 
+        curl_setopt_array($ch, $curlConfig); 
+        $response           = curl_exec($ch); 
+        curl_close($ch);
+
+        dd($recaptcha->score);
+        
+        if($recaptcha->score >= 0.7){
+         $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
+        
+             $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
+
+             if(!is_null($p)){
+                $datas['datas'] = $p;
+             }else{
+                $datas['datas'] = 'sin data';
+             }
+
+            return view('operativo-anterior.buscar')->with($datas);
+                 
+        }else{
+
+            $datas['captcha_error'] = 'Error en la validación de captcha';
+            return view('operativo-anterior.buscar')->with($datas);
+        }
+        */
+
+    
 
 
      public function formulario(){            
@@ -250,4 +293,9 @@ class OperativoController extends Controller
         return view('operativo-anterior.buscar');
 
     }
+
+
+
+
+     
 }

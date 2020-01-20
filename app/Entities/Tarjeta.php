@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Entities;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tarjeta extends Entities
 {
 
+  use SoftDeletes;
+  
     protected $table = 'tarjetas';
     protected $fillable = [
       'numero',
