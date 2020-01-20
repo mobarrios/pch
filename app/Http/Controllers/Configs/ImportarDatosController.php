@@ -18,6 +18,7 @@ use App\Entities\Tarjeta;
 use App\Entities\NuevaSucursal;
 use App\Entities\Sucursal;
 use App\Entities\PersonaDiaHorario;
+use App\Entities\OperativoPersona;
 use DB;
 
 class ImportarDatosController extends Controller
@@ -39,6 +40,7 @@ class ImportarDatosController extends Controller
 
     	$padrones = NuevoPadron::all();
         // dd('nuevo padron');
+        ini_set('max_execution_time', 1800);
         //DB::beginTransaction();
 
         //try{
@@ -267,6 +269,69 @@ class ImportarDatosController extends Controller
             }   
 
     dd('personas operativos creado');
+
+    }
+
+
+    public function operativosConcordia(){
+
+
+        $operativos =  DB::table('operativos_concordia')->get();
+
+        foreach ($operativos as $op) {
+           
+            // Nueva Persona
+            $persona                    =   new Persona();
+            $persona->nombre            =   '$op->NOMBRE';
+            $persona->apellido          =   '$op->APELLIDO';
+
+            $persona->tipo_doc          =   $op->tipo_doc;
+            $persona->nro_documento     =   $op->n_doc;
+            $persona->fecha_nacimiento  =   $op->f_nac;
+            $persona->cuit              =   $op->cuit;
+            $persona->save();
+
+            // Nueva Localizacion
+            $persona->geos()->create([ 
+
+
+                'provincia'     => $op->provincia, 
+                'localidad'     => $op->localidad,
+                'calle'         => $op->calle,
+                'numero'        => $op->numero,
+          
+
+             ]);
+
+            // Tarjeta
+            $tarjeta                            =  new Tarjeta();
+            $tarjeta->numero_cuenta             = $op->cuenta;
+            $tarjeta->numero                    = explode("#",$op->tarjeta);
+            $tarjeta->save();
+            
+            // Personas Tarjetas  
+            $personasTarjetas                   = new PersonaTarjetas();
+            $personasTarjetas->tarjetas_id      = $tarjeta->id;
+            $personasTarjetas->personas_id      = $persona->id;
+            $personasTarjetas->save();
+
+            // OPERATIVO ID
+            $operativoPersona                   = new OperativoPersona();
+            $operativoPersona->operativos_id    = $idOperativo;
+            $operativoPersona->personas_id      = $op->personas_id;    
+            $operativoPersona->concurrio        = $op->retiro;
+            $operativoPersona->save();   
+
+            //$persona->Operativo()->attach( 'operativos_id' => $operativos_id, 'operativos_id' => $op->retiro );
+
+            dd('personas operativos creado');
+
+
+        }
+
+
+
+
 
     }
 

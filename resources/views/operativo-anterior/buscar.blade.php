@@ -165,7 +165,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <button type="submit" :disabled="enviado" class="btn btn-primary btn-block">Buscar</button>
+                                        <button type="submit" disabled id="buscador" class="btn btn-primary btn-block">Buscar</button>
                                         
                                         {{--
                                         <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
@@ -303,7 +303,14 @@
     </div>
 </footer>
  --}}
-<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+<script>
+$(document).ready(function () {
+        $('#buscador').removeAttr('disabled');
+});
+</script>
+
 </body>
 </html>
 
