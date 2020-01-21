@@ -23,6 +23,9 @@ class OperativoRepo extends BaseRepo
     public function find($id)
     {
         $model = $this->model->find($id);
+        $model->provincia = $model->geos()->first()->provincia;
+        $model->localidad = $model->geos()->first()->localidad;
+        $model->municipio = $model->geos()->first()->municipio;
         $model->calle = $model->geos()->first()->calle;
         $model->numero = $model->geos()->first()->numero;
         $model->latitud = $model->geos()->first()->latitud;

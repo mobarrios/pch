@@ -199,7 +199,7 @@ class OperativoController extends Controller
         }
         
 
-        $model->geos()->update($request->only('calle','numero','latitud','longitud'));
+        $model->geos()->update($request->only('calle','numero','latitud','longitud','provincia','localidad','municipio'));
         
 
         $this->data['programa_id'] = $this->route->id;        
@@ -217,7 +217,7 @@ class OperativoController extends Controller
 
     public function postFormulario(Request $request)
     {
-/*
+
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
         $recaptcha_secret = '6LdXC9EUAAAAAA2kqcbV_c6XSgw0U9eQgjiPqQuo'; 
         $recaptcha_response = $request->recaptcha_response; 
@@ -227,70 +227,35 @@ class OperativoController extends Controller
         $recaptcha = file_get_contents($recaptcha_url . '?secret=' . $recaptcha_secret . '&response=' . $recaptcha_response); 
         $recaptcha = json_decode($recaptcha); 
 
-    //   dd($recaptcha);
-       
-        if($recaptcha->score >= 0.7){
+        if($recaptcha->success == true)
+        {
 
-             */
             $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
-           
+        
                 $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
-   
-                if(!is_null($p)){
-                   $datas['datas'] = $p;
-                }else{
-                   $datas['datas'] = 'sin data';
-                }
-   
-               return view('operativo-anterior.buscar')->with($datas);
-        /*            
-           }else{
-   
-               $datas['captcha_error'] = 'Error en la validación de captcha';
-               return view('operativo-anterior.buscar')->with($datas);
-           }
-        */
-        }
 
-   
-/*
-
-        $recaptcha_secret   = env('GOOGLE_RECAPTCHA_SECRET'); 
-        $recaptcha_response = $request->recaptcha_response; 
-        $url                = 'https://www.google.com/recaptcha/api/siteverify'; 
-        $data               = array( 'secret' => $recaptcha_secret, 'response' => $recaptcha_response, 'remoteip' => $_SERVER['REMOTE_ADDR'] ); 
-        $curlConfig         = array( CURLOPT_URL => $url, CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_POSTFIELDS => $data ); 
-        $ch                 = curl_init(); 
-        curl_setopt_array($ch, $curlConfig); 
-        $response           = curl_exec($ch); 
-        curl_close($ch);
-
-        dd($recaptcha->score);
-        
-        if($recaptcha->score >= 0.7){
-         $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
-        
-             $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
-
-             if(!is_null($p)){
+                if(!is_null($p))
+                {
                 $datas['datas'] = $p;
-             }else{
+                }else{
                 $datas['datas'] = 'sin data';
-             }
+                }
 
             return view('operativo-anterior.buscar')->with($datas);
-                 
-        }else{
+                    
+        }
+        else
+        {
 
             $datas['captcha_error'] = 'Error en la validación de captcha';
             return view('operativo-anterior.buscar')->with($datas);
         }
-        */
+        
+    }
 
-    
 
-
-     public function formulario(){            
+     public function formulario()
+     {            
 
         return view('operativo-anterior.buscar');
 
