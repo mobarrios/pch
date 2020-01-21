@@ -57,7 +57,7 @@
     </script>
         --}}
 
-
+        {{--
     <script src='https://www.google.com/recaptcha/api.js?render=6LdXC9EUAAAAABm_ftXh4M0_JSRsv2QdDNTEar_g'> 
     </script>
     <script>
@@ -69,6 +69,7 @@
     });});
     </script>
     
+    --}}
 </head>
 <body>
 

@@ -217,7 +217,7 @@ class OperativoController extends Controller
 
     public function postFormulario(Request $request)
     {
-
+/*
         $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify'; 
         $recaptcha_secret = '6LdXC9EUAAAAAA2kqcbV_c6XSgw0U9eQgjiPqQuo'; 
         $recaptcha_response = $request->recaptcha_response; 
@@ -228,8 +228,10 @@ class OperativoController extends Controller
         $recaptcha = json_decode($recaptcha); 
 
     //   dd($recaptcha);
-        
+       
         if($recaptcha->score >= 0.7){
+
+             */
             $datas['datas'] = Persona::where('nro_documento',$request->only('buscar'))->first();
            
                 $p  = Persona::where('nro_documento',$request->only('buscar'))->first();
@@ -241,13 +243,13 @@ class OperativoController extends Controller
                 }
    
                return view('operativo-anterior.buscar')->with($datas);
-                    
+        /*            
            }else{
    
                $datas['captcha_error'] = 'Error en la validación de captcha';
                return view('operativo-anterior.buscar')->with($datas);
            }
-        
+        */
         }
 
    
