@@ -26,6 +26,19 @@
                 {!! Form::time('horario',null,['class'=>'form-control']) !!}
             </div>    
             <div class="form-group">
+                {!! Form::label('PROVINCIA') !!}
+                {!! Form::text('provincia',null,['class'=>'form-control']) !!}
+            </div>           
+
+            <div class="form-group">
+                {!! Form::label('MUNICIPIO') !!}
+                {!! Form::text('municipio',null,['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('LOCALIDAD') !!}
+                {!! Form::text('localidad',null,['class'=>'form-control']) !!}
+            </div>
+            <div class="form-group">
                 {!! Form::label('CALLE') !!}
                 {!! Form::text('calle',null,['class'=>'form-control']) !!}
             </div>

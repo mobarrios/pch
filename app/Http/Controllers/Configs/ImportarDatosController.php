@@ -106,7 +106,7 @@ class ImportarDatosController extends Controller
 
 
             // OPERATIVO ID
-            $operativos_id                      = 1;
+            $operativos_id                      = $padron->ID_OPERATIVOS;
             $persona->Operativo()->attach($operativos_id);
             
 
