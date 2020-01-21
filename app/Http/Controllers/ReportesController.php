@@ -35,8 +35,7 @@ class ReportesController extends Controller
 
         $operativo = DB::table('operativos')
         ->join('operativos_personas','operativos_personas.operativos_id','=','operativos.id')
-        ->select('nombre','dia',DB::raw('count( operativos_personas.id) as cantidad'))
-        ->where('operativos_personas.concurrio',1)
+        ->select('nombre','dia',DB::raw('count( operativos_personas.id) as cantidad'),DB::raw('COUNT(IF(operativos_personas.concurrio = 1, 1, NULL)) con'))
         ->groupBy('operativos.id')
         ->get();
 
