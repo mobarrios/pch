@@ -27,7 +27,8 @@
 
 
        @if (isset($datas))
-        <table id="" class="table table-hover">
+       <div class="table-responsive">
+        <table id="" class="table">
             <thead>
             <tr>
                 <!-- <th>Código</th> -->
@@ -67,7 +68,7 @@
             <!-- endforeach             -->
             </tbody>
         </table>       
-        
+        </div>
     @endif
   </div>
  

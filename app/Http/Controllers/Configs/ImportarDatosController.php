@@ -162,6 +162,7 @@ class ImportarDatosController extends Controller
 
 
         $padrones = NuevoPadron::all();
+       
         //$personas = Persona::all();
         //dd($personas->count());
 
@@ -306,28 +307,31 @@ class ImportarDatosController extends Controller
             // Tarjeta
             $tarjeta                            =  new Tarjeta();
             $tarjeta->numero_cuenta             = $op->cuenta;
-            $tarjeta->numero                    = explode("#",$op->tarjeta);
+            //$tarjeta->numero                    = trim($op->tarjeta, "#");
+            $tarjeta->numero_tarjeta            = trim($op->tarjeta, "#");
             $tarjeta->save();
             
             // Personas Tarjetas  
             $personasTarjetas                   = new PersonaTarjetas();
             $personasTarjetas->tarjetas_id      = $tarjeta->id;
             $personasTarjetas->personas_id      = $persona->id;
+            $personasTarjetas->operativos_id    = 1;
+            
             $personasTarjetas->save();
 
             // OPERATIVO ID
             $operativoPersona                   = new OperativoPersona();
-            $operativoPersona->operativos_id    = $idOperativo;
-            $operativoPersona->personas_id      = $op->personas_id;    
-            $operativoPersona->concurrio        = $op->retiro;
+            $operativoPersona->operativos_id    = 1;
+            $operativoPersona->personas_id      = $persona->id;    
+            $operativoPersona->concurrio        = !empty($op->retiro) ? 1 : 0;
             $operativoPersona->save();   
 
             //$persona->Operativo()->attach( 'operativos_id' => $operativos_id, 'operativos_id' => $op->retiro );
 
-            dd('personas operativos creado');
 
 
         }
+            dd('personas operativos creado');
 
 
 

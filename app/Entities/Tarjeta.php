@@ -17,7 +17,8 @@ class Tarjeta extends Entities
       'retiro_operativo',
       'retiro_sucursal',
       'retiro_fecha',
-      'retiro_hora'
+      'retiro_hora',
+      'numero_tarjeta',
     ];
  
  	
