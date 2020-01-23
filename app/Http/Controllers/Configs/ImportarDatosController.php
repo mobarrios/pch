@@ -162,11 +162,18 @@ class ImportarDatosController extends Controller
 
 
         $padrones = NuevoPadron::all();
-       
+
+
         //$personas = Persona::all();
         //dd($personas->count());
 
+
             foreach ($padrones as $padron) {
+
+            $persona                    = Persona::where('cuit', $padron->CUIL)->first();
+            
+            if( $persona == null ){
+           
 
             // Nueva Persona
             $persona                    =   new Persona();
@@ -197,8 +204,12 @@ class ImportarDatosController extends Controller
 
 
             // Tarjeta
-            $tarjeta                            =  new Tarjeta();
-            $tarjeta->importe                   =  $padron->monto;
+            $tarjeta                            = new Tarjeta();
+            $tarjeta->importe                   = $padron->monto;
+            $tarjeta->retiro_fecha              = $padron->OPERATIVO_DIA;
+            $tarjeta->retiro_hora               = $padron->OPERATIVO_HORARIO;
+                  
+
             $tarjeta->save();
             
             // Personas Tarjetas  
@@ -212,7 +223,9 @@ class ImportarDatosController extends Controller
             $persona->Operativo()->attach($operativos_id);
 
 
-        }   
+            }   
+
+        }
 
         dd('personas operativos creado');
 

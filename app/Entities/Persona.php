@@ -36,6 +36,6 @@ class Persona extends Entities
 
      public function Tarjeta(){
 
-        return $this->belongsToMany( Tarjeta::class ,'personas_tarjetas','tarjetas_id','personas_id');
+        return $this->belongsToMany( Tarjeta::class ,'personas_tarjetas' ,'tarjetas_id','personas_id');
      }
 }

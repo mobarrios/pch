@@ -221,6 +221,7 @@
                                         <td data-label="Municipio">{{$datas->Operativo->first()->Geos->first()->municipio }}</td>
                                               
                                         <td data-label="Localidad">{{$datas->Operativo->first()->Geos->first()->localidad }}</td>
+                                        
                                               
                                         @if($datas->Tarjeta->first()->retiro_fecha == "" || $datas->Tarjeta->first()->retiro_hora == "")
                                                 <td data-label="Retiro">Día y horario a definir</td>

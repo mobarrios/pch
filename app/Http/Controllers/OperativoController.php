@@ -45,10 +45,11 @@ class OperativoController extends Controller
             $id_user        = Auth::id();
             $user           = User::find($id_user);
             $operativosId   = UsuarioOperativo::where('usuarios_id', $user->id)->select('operativos_id')->get();
-
+            //dd($operativosId);
             $this->data['datas'] = collect();
                     
-                $datos = Persona::where('nro_documento','=', $request->buscar)
+                $datos = Persona::select('personas.id as id', 'personas.apellido as apellido', 'personas.nombre as nombre', 'personas.nro_documento as nro_documento')
+                ->where('nro_documento','=', $request->buscar)
                 ->join('operativos_personas', function($join)use($operativosId){
                       $join->on('personas.id', '=', 'operativos_personas.personas_id')
                             ->whereIn('operativos_personas.operativos_id', $operativosId);
@@ -58,7 +59,7 @@ class OperativoController extends Controller
             $this->data['datas'] = $this->data['datas']->merge($datos->get());
 
             if ($datos->count() == 2){
-                $this->data['datas'] = $this->data['datas']->take(1);
+                $this->data['datas'] = $this->data['datas'];
             }
             else{
                 $this->data['datas'] = $this->data['datas']->take(50);

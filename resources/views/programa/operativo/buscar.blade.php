@@ -45,7 +45,8 @@
  
             <!-- foreach ($datas as $data) -->
        
-                @foreach($datas as $persona)    
+                @foreach($datas as $persona)  
+                
                     @if (!$persona->Operativo->isEmpty())                
                         <tr>
                             

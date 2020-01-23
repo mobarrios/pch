@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+=======
 /vendor/
 node_modules/
 npm-debug.log
@@ -10,14 +24,9 @@ app/storage/
 # Laravel 5 & Lumen specific
 public/storage
 public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
 storage/*.key
 .env
 Homestead.yaml
 Homestead.json
 /.vagrant
-.phpunit.result.cache
+>>>>>>> 414dd39fbe316d9c66ff5b6e5897ac4c343e70bd
